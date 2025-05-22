@@ -1,9 +1,6 @@
-import NavBar from "./layouts/NavBar"
-
 function App() {
   return (
     <>
-      <NavBar activeLink="sapi"/>
       <h1 className='font-bold text-2xl mb-4'>
         Tailwind CSS Utility-First Fundamental
       </h1>
