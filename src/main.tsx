@@ -1,14 +1,25 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import App from './App';
 import './App.css'
+import LoginPage from './pages/login';
+import RegisterPage from './pages/register';
+import Error404Page from './pages/404';
 
 const router = createBrowserRouter([
   {
     path:"/",
-    element: <App />
-  }
+    element: <h1>Hello Peps</h1>,
+    errorElement: <Error404Page />
+  },
+  {
+    path:"/login",
+    element: <LoginPage />
+  },
+  {
+    path:"/register",
+    element: <RegisterPage />
+  },
 ])
 
 createRoot(document.getElementById('root')!).render(
