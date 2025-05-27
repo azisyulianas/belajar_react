@@ -1,9 +1,57 @@
-const CardPorduct = () => {
-  return (
-    <div>
+import Button from "../Elements/Button/Index"
 
+const CardPorduct = (props:any) => {
+  const { children } = props
+  return (
+    <div className="w-full max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow mx-2">
+      {children}
     </div>
   )
 }
+
+const Header = (props:any) => {
+  const {image, alt} = props
+  return (
+    <a href="#">
+      <img 
+        src={image} 
+        alt={alt}
+        className="p-8 rounded-t-lg"
+      />
+    </a>
+  )
+}
+
+const Body = (props:any) => {
+  const { children, title } = props
+  return (
+    <div className="px-5 pb-5">
+      <a href="#">
+        <h5 className="text-xl font-semibold tracking-tight text-white">
+          {title}
+        </h5>
+        <p className="text-m text-white">
+          {children}
+        </p>
+      </a>
+    </div>
+  )
+}
+
+const Footer = (props:any) =>{
+  const {weapon} = props
+  return (
+    <div className="flex items-center justify-between px-5 pb-5">
+      <span className="text-xl font-bold text-white">
+        {weapon}
+      </span>
+      <Button classname="bg-red-700">Like</Button>
+    </div>
+  )
+}
+
+CardPorduct.Header = Header;
+CardPorduct.Body = Body;
+CardPorduct.Footer = Footer;
 
 export default CardPorduct
