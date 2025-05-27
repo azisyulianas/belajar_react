@@ -1,4 +1,9 @@
-const Label = (props:any) => {
+type props = {
+  htmlfor:string
+  children:any
+}
+
+const Label = (props:props) => {
   const {htmlfor, children} = props
   return (
   <label htmlFor={htmlfor}

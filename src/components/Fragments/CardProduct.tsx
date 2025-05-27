@@ -1,7 +1,7 @@
 import Button from "../Elements/Button/Index"
 
-const CardPorduct = (props:any) => {
-  const { children } = props
+const CardPorduct = (props:{children:any}) => {
+  const { children="" } = props
   return (
     <div className="w-full max-w-sm bg-gray-800 border border-gray-700 rounded-lg shadow mx-2">
       {children}
@@ -9,7 +9,7 @@ const CardPorduct = (props:any) => {
   )
 }
 
-const Header = (props:any) => {
+const Header = (props:{image:string,alt:string}) => {
   const {image, alt} = props
   return (
     <a href="#">
@@ -22,7 +22,7 @@ const Header = (props:any) => {
   )
 }
 
-const Body = (props:any) => {
+const Body = (props:{children:any,title:string}) => {
   const { children, title } = props
   return (
     <div className="px-5 pb-5">
@@ -38,7 +38,7 @@ const Body = (props:any) => {
   )
 }
 
-const Footer = (props:any) =>{
+const Footer = (props:{weapon:string}) =>{
   const {weapon} = props
   return (
     <div className="flex items-center justify-between px-5 pb-5">

@@ -1,4 +1,9 @@
-const Button = (props:any) => {
+type props={
+  children:string
+  classname:string
+}
+
+const Button = (props:props) => {
   const { children, classname = "bg-black" } = props;
   return (
     <button

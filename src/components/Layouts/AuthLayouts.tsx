@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom"
 
-const AuthLayout = (props:any) => {
+type props = {
+  children:any
+  title:string
+  type:string
+}
+
+const AuthLayout = (props:props) => {
   const { children, title, type } = props
   return (
     <div className="flex justify-center min-h-screen items-center">

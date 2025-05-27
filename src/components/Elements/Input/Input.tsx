@@ -1,4 +1,10 @@
-const Input = (props:any) => {
+type props = {
+  type:string
+  name:string
+  placeholder:string
+}
+
+const Input = (props:props) => {
   const {type, name, placeholder} = props;
   return (
     <input 
