@@ -1,4 +1,14 @@
 import CardPorduct from "../components/Fragments/CardProduct"
+import Button from "../components/Elements/Button/Index"
+import { useState, Fragment } from "react"
+
+interface Character {
+  id:number;
+  name:string;
+  image:string;
+  deskription:string;
+  weapon:string;
+}
 
 const characters = [
   {
@@ -25,19 +35,63 @@ const characters = [
 ]
 
 const ProductsPage = () =>{
+  const [fav, setFav] = useState<Character[]>([])
+
+ 
+  const email = localStorage.getItem("email")
+  const handleLogout = () =>{
+    localStorage.removeItem("email")
+    localStorage.removeItem("password")
+    window.location.href = "/login"
+  }
+
+  const handleLike = (character: Character) => {
+    setFav([
+      ...fav,
+      character
+    ])
+  }
+
+  const handleRemoveLike = (id: number) => {
+    setFav([
+      ...fav.filter(char=>{return char.id !== id})
+    ])
+  }
+
   return(
-    <div className="flex justify-center py-5">
-    {characters.map((character)=>
-      <CardPorduct>
-        <CardPorduct.Header alt={character.name}
-          image={character.image} />
-        <CardPorduct.Body title={character.name}>
-          {character.deskription}
-        </CardPorduct.Body>
-        <CardPorduct.Footer weapon={character.weapon}/>
-      </CardPorduct>
-    )}
-    </div>
+    <Fragment>
+      <div className="flex justify-end bg-blue-500 text-white px-10 h-10 items-center">
+        {email}
+        <Button classname="ml-5 bg-red-700 rounded-md" onclick={handleLogout} type="button">Logout</Button>
+      </div>
+      <div className="flex justify-center py-5">
+        <div className="w-3/4 flex flex-wrap">
+          {characters.map((character)=>
+            <CardPorduct key={character.id}>
+              <CardPorduct.Header alt={character.name}
+                image={character.image} />
+              <CardPorduct.Body title={character.name}>
+                {character.deskription}
+              </CardPorduct.Body>
+              <CardPorduct.Footer 
+                weapon={character.weapon} 
+                addToFav={()=>handleLike(character)}
+                removeFromFav={()=>handleRemoveLike(character.id)}
+                is_like={fav.map(item =>{return item.id}).includes(character.id)}
+              />
+            </CardPorduct>
+          )}
+        </div>
+        <div className="w-1/4">
+          <h1 className="text-3xl font-bold text-blue-600">Favorite</h1>
+          <ul>
+            {fav.map((item)=>(
+              <li key={item.id}>{item.name}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </Fragment>
   )
 }
 
