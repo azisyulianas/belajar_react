@@ -1,6 +1,6 @@
 import CardPorduct from "../components/Fragments/CardProduct"
 import Button from "../components/Elements/Button/Index"
-import { useState, Fragment } from "react"
+import { useState, Fragment, useEffect, useRef } from "react"
 
 interface Character {
   id:number;
@@ -36,8 +36,21 @@ const characters = [
 
 const ProductsPage = () =>{
   const [fav, setFav] = useState<Character[]>([])
+  const [totalFav, setTotalFav] = useState(0)
+  const [isInitialized, setIsInitialized] = useState(false);
 
- 
+
+  useEffect(()=>{
+    const favChar = localStorage.getItem("favChar");
+    setFav(favChar ? JSON.parse(favChar) : []);
+    setIsInitialized(true);
+  }, [])
+  useEffect(()=>{
+    if (!isInitialized) return;
+    setTotalFav(fav.length)
+    localStorage.setItem("favChar",JSON.stringify(fav))
+  },[fav, isInitialized])
+
   const email = localStorage.getItem("email")
   const handleLogout = () =>{
     localStorage.removeItem("email")
@@ -58,6 +71,15 @@ const ProductsPage = () =>{
     ])
   }
 
+  const listFavRef = useRef<HTMLHeadingElement | null>(null)
+
+  useEffect(()=>{
+    if (!isInitialized) return;
+    if (listFavRef.current){
+      listFavRef.current.style.display = fav.length > 0 ? "block" : "none";
+    }
+  },[fav,isInitialized])
+  
   return(
     <Fragment>
       <div className="flex justify-end bg-blue-500 text-white px-10 h-10 items-center">
@@ -84,6 +106,7 @@ const ProductsPage = () =>{
         </div>
         <div className="w-1/4">
           <h1 className="text-3xl font-bold text-blue-600">Favorite</h1>
+          <h1 className="text-2xl font-bold text-blue-300" ref={listFavRef}>Total Fav Character{" "}: <span>{totalFav}</span></h1>
           <ul>
             {fav.map((item)=>(
               <li key={item.id}>{item.name}</li>
